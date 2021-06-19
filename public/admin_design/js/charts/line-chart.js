@@ -4,68 +4,71 @@
 	 /*----------------------------------------*/
 	/*  1.  Basic Line Chart
 	/*----------------------------------------*/
-	let draw = Chart.controllers.line.prototype.draw;
-Chart.controllers.line.prototype.draw = function() {
-    draw.apply(this, arguments);
-    let ctx = this.chart.chart.ctx;
-    let _stroke = ctx.stroke;
-    ctx.stroke = function() {
-        ctx.save();
-        ctx.shadowColor = '#07C';
-        ctx.shadowBlur = 20;
-        ctx.shadowOffsetX = 2;
-        ctx.shadowOffsetY = 20;
-        _stroke.apply(this, arguments);
-        ctx.restore();
-    }
-};
-
-var ctx = document.getElementById("basiclinechart");
-let myChart = new Chart(ctx, {
-    type: 'line',
+	var ctx = document.getElementById("basiclinechart");
+	var basiclinechart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ["January", "February", "March", "April", "May", "June", "July"],
+			datasets: [{
+				label: "My First dataset",
+				fill: false,
+                backgroundColor: '#303030',
+				borderColor: '#303030',
+				data: [3, -5, -2, 3, 9, 12, 19]
+            }, {
+                label: "My Second dataset",
+				fill: false,
+                backgroundColor: '#03a9f4',
+				borderColor: '#03a9f4',
+				data: [-12, -3, -4, 6, 3, 7, 10]
+				
+		}]
+		},
+		options: {
+			responsive: true,
+			title:{
+				display:true,
+				text:'Basic Line Chart'
+			},
+			tooltips: {
+				mode: 'index',
+				intersect: false,
+			},
+			hover: {
+				mode: 'nearest',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					ticks: {
+						autoSkip: false,
+						maxRotation: 0
+					},
+					ticks: {
+					  fontColor: "#fff", // this here
+					},
+					scaleLabel: {
+						display: true,
+						labelString: 'Month'
+					}
+				}],
+				yAxes: [{
+					ticks: {
+						autoSkip: false,
+						maxRotation: 0
+					},
+					ticks: {
+					  fontColor: "#fff", // this here
+					},
+					scaleLabel: {
+						display: true,
+						labelString: 'Value'
+					}
+				}]
+			}
+		}
+	});
 	
-    data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-            data: [65, 59, 75, 64, 70, 30, 40],
-            borderColor: '#07C',
-            pointBackgroundColor: "#FFF",
-            pointBorderColor: "#07C",
-            pointHoverBackgroundColor: "#07C",
-            pointHoverBorderColor: "#FFF",
-            pointRadius: 4,
-            pointHoverRadius: 4,
-            fill: false,
-            tension: 0.15
-        }]
-    },
-    options: {
-        responsive: false,
-        tooltips: {
-            displayColors: false,
-            callbacks: {
-                label: function(e, d) {
-                    return;
-                },
-                title: function() {
-                    return;
-                }
-            }
-        },
-        legend: {
-            display: false
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    max: 90
-                }
-            }]
-        }
-    }
-});
-
-
 	 /*----------------------------------------*/
 	/*  2.  Line Chart Multi axis
 	/*----------------------------------------*/

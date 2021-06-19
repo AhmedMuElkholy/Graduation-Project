@@ -25,7 +25,9 @@
                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX" >
                                         <li><a href="{{url('admin/profile?a=general-info')}}"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>My Account</a>
                                         </li>
-                                        <li><a href="{{url('admin/profile?a=change-password')}}"><span class="adminpro-icon adminpro-user-rounded author-log-ic"></span>Change Password</a>
+                                        <li><a href="{{url('admin/profile?a=change-password')}}"><span class="adminpro-icon adminpro-settings author-log-ic"></span>Change Password</a>
+                                        </li>
+                                        <li><a href="{{url('admin/profile?a=change-image')}}"><span class="adminpro-icon adminpro-user-rounded author-log-ic"></span>Change Image</a>
                                         </li>
                                         <li><a href="{{ route('admin.logout') }}"onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">

@@ -1,4 +1,5 @@
 @extends('admin.layouts.app')
+@section('page-title') Create Team Member @endsection
 @section('content')
 
 <!-- Breadcome start-->
@@ -18,9 +19,9 @@
                         </div>
                         <div class="col-lg-6">
                             <ul class="breadcome-menu">
-                                <li><a href="{{route('admin.home')}}">Home</a> <span class="bread-slash">/</span>
+                                <li><a href="{{route('admin.dashboards.index')}}">Home</a> <span class="bread-slash">/</span>
                                 </li>
-                                <li><a href="{{route('admin.team-members.index')}}">Team Members</a> /</li>
+                                <li><a href="{{route('admin.teams.index')}}">Team Members</a> /</li>
                                 <li><span class="bread-blod">Create</span></li>
                             </ul>
                         </div>
@@ -42,7 +43,7 @@
                 <div class="sparkline8-list basic-res-b-30 shadow-reset">
                     <div class="sparkline8-hd">
                         <div class="main-sparkline8-hd">
-                            <h1>Create Team Member Form <a href="{{route('admin.team-members.index')}}" class="btn btn-primary">Back</a></h1>
+                            <h1>Create Team Member Form <a href="{{route('admin.teams.index')}}" class="btn btn-primary">Back</a></h1>
                         </div>
                     </div>
                     <div class="sparkline8-graph">
@@ -50,7 +51,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="basic-login-inner">
-                                        <form action="{{route('admin.team-members.store')}}"  method="POST" enctype="multipart/form-data">
+                                        <form action="{{route('admin.teams.store')}}"  method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group col-lg-6">
                                                 <label>Name</label>

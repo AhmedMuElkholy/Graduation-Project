@@ -142,7 +142,9 @@ return [
     ],
 
     'modules' => [
-        'dashboards'
+        'permissions',
+        'roles',
+        'teams'
     ],
     
     'permissions' => 

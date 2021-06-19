@@ -1,4 +1,5 @@
 @extends('admin.layouts.app')
+@section('page-title') Index Team Member @endsection
 @section('content')
 
 <!-- Breadcome start-->
@@ -10,7 +11,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <ul class="breadcome-menu">
-                                <li><a href="{{route('admin.home')}}">Home</a> <span class="bread-slash">/</span>
+                                <li><a href="{{route('admin.dashboards.index')}}">Home</a> <span class="bread-slash">/</span>
                                 </li>
                                 <li><span class="bread-blod">Team Members</span>
                                 </li>
@@ -54,6 +55,7 @@
     </div>
 </div>
 <!-- Breadcome End-->
+
 @include('flash_messages')
 <!-- Static Table Start -->
 <div class="data-table-area mg-b-15">
@@ -63,7 +65,7 @@
                 <div class="sparkline13-list shadow-reset">
                     <div class="sparkline13-hd">
                         <div class="main-sparkline13-hd">
-                            <h1>Team Members <span class="table-project-n">Data</span> Table <a href="{{route('admin.team-members.create')}}" class="btn btn-primary">Create</a></h1> 
+                            <h1>Team Members <span class="table-project-n">Data</span> Table <a href="{{route('admin.teams.create')}}" class="btn btn-primary">Create</a></h1> 
                         </div>
                     </div>
                     <div class="sparkline13-graph">
@@ -85,8 +87,8 @@
                                         <td>{{$team_member->job_title}}</td>
                                         <td>{{$team_member->createdBy->name}}</td>
                                         <td>
-                                            <a href="{{route('admin.team-members.show',$team_member->id)}}"><i class="fa fa-eye"></i></a>
-                                            <a href="{{route('admin.team-members.edit',$team_member->id)}}"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{route('admin.teams.show',$team_member->id)}}"><i class="fa fa-eye"></i></a>
+                                            <a href="{{route('admin.teams.edit',$team_member->id)}}"><i class="fa fa-pencil"></i></a>
                                             <a href="#deModal{{$team_member->id}}" data-toggle="modal"><i class="fa fa-trash"></i></a>
                                             <div class="modal fade" id="deModal{{$team_member->id}}" role="dialog">
                                                 <div class="modal-dialog" role="document">
@@ -102,7 +104,7 @@
                                                             <p>Are you sure you want to delete this record?</p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form method="POST"  action="{{route('admin.team-members.destroy',$team_member->id)}}">
+                                                            <form method="POST"  action="{{route('admin.teams.destroy',$team_member->id)}}">
                                                                 @csrf
                                                                 @method('Delete')
                                                                 <button type="submit" class="btn btn-danger">Confirm</button>

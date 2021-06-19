@@ -8,11 +8,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 
-class SettingController extends Controller
+class SettingsController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('permission:settings.index',['only' => ['index','store']]);
     }
 
     /**

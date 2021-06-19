@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-lg-6">
                             <ul class="breadcome-menu">
-                                <li><a href="{{route('admin.home')}}">Home</a> <span class="bread-slash">/</span>
+                                <li><a href="{{route('admin.dashboards.index')}}">Home</a> <span class="bread-slash">/</span>
                                 </li>
                                 <li><span class="bread-blod">Profile</span>
                                 </li>
