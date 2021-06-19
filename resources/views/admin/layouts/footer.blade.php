@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer-copy-right">
-                    <p>Copyright &#169; 2018 Colorlib All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                    <p>Copyright &#169; {{date('Y')}} EOS All rights reserved.</a>.</p>
                 </div>
             </div>
         </div>
@@ -48,6 +48,7 @@
 <script src="{{url('admin_design')}}/js/sparkline/jquery.sparkline.min.js"></script>
 <script src="{{url('admin_design')}}/js/sparkline/sparkline-active.js"></script>
 
+
 <!-- data table JS
 ============================================ -->
 <script src="{{url('admin_design')}}/js/data-table/bootstrap-table.js"></script>
@@ -58,9 +59,21 @@
 <script src="{{url('admin_design')}}/js/data-table/bootstrap-table-resizable.js"></script>
 <script src="{{url('admin_design')}}/js/data-table/colResizable-1.5.source.js"></script>
 <script src="{{url('admin_design')}}/js/data-table/bootstrap-table-export.js"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <!-- main JS
 ============================================ -->
 <script src="{{url('admin_design')}}/js/main.js"></script>
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker({
+			dateFormat: 'yy-mm-dd',
+			changeMonth: true,
+			changeYear: true,
+		});
+  } );
+  </script>
 
 @stack('adminjs')
 

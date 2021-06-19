@@ -23,9 +23,6 @@ class UserController extends Controller
          $this->middleware('permission:users.create', ['only' => ['create','store']]);
          $this->middleware('permission:users.edit', ['only' => ['edit','update']]);
          $this->middleware('permission:users.destroy', ['only' => ['destroy']]);
-         $this->middleware('permission:users.admins', ['only' => ['index']]);
-         $this->middleware('permission:users.researchers', ['only' => ['index']]);
-         $this->middleware('permission:users.users', ['only' => ['index']]);
     }
         /**
      * Display a listing of the resource.
@@ -68,7 +65,7 @@ class UserController extends Controller
             'gender'                    => 'required|in:male,female',
             'photo'                     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'date_of_birth'             => 'required|date',
-            'phone'                     => 'required' 
+            'phone'                     => 'required|regex:/(01)[0-9]{9}/'
         ];
 
         $names = [
@@ -83,6 +80,8 @@ class UserController extends Controller
         ];
         
         $data = $this->validate($request, $rules , [],$names);
+
+        $data['date_of_birth'] = request('date_of_birth');
 
         $data['password'] = Hash::make(request('password'));
 
@@ -155,8 +154,13 @@ class UserController extends Controller
             'gender'                    => 'required|in:male,female',
             'photo'                     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'date_of_birth'             => 'required|date',
-            'phone'                     => 'required'
+            'phone'                     => 'required|regex:/(01)[0-9]{9}/'
         ];
+
+        if(request('photo') != null)
+        {
+            $rules['photo'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096';
+        }
 
         $names = [
             'name'                      => 'Name',
@@ -164,27 +168,32 @@ class UserController extends Controller
             'role_id'                   => 'Role',
             'gender'                    => 'Gender',
             'photo'                     => 'Photo',
+            'date_of_birth'             => 'Date Of Birth',
             'phone'                     => 'Phone',
         ];
 
         $data = $this->validate($request, $rules , [],$names);
-    
+
         $user = User::find($id);
 
-        if($user->photo != null)
+        $data['date_of_birth'] = request('date_of_birth');
+
+        if(request('photo') != null)
         {
-            File::delete($user->photo); // delete previous image from folder   
+            if($user->photo != null)
+            {
+                File::delete($user->photo); // delete previous image from folder   
+            }
+    
+            if(request('role_id') == 1)
+            {
+                $data['photo'] = storeImage($request ,'photo' , 'storage/app/admins_photos/', $user->id, 'users');
+                
+            }else{
+    
+                $data['photo'] = storeImage($request ,'photo' , 'storage/app/users_photos/', $user->id, 'users');
+            }
         }
-
-        if(request('role_id') == 1)
-        {
-            $data['photo'] = storeImage($request ,'photo' , 'storage/app/admins_photos/', $user->id, 'users');
-            
-        }else{
-
-            $data['photo'] = storeImage($request ,'photo' , 'storage/app/users_photos/', $user->id, 'users');
-        }
-
         
         $user->update($data);
         $role_name = Role::where('id',request('role_id'))->first();
@@ -227,24 +236,6 @@ class UserController extends Controller
             $user->update($data);
             return redirect()->route('admin.users.index')
                         ->with('success','User Password Updated successfully');
-    }
-
-    public function admins()
-    {
-        $admins = User::where('role_id','1')->get();
-        return view('admin.users.admins',compact('admins'));
-    }
-
-    public function researchers()
-    {
-        $researchers = User::where('role_id','2')->get();
-        return view('admin.users.researchers',compact('researchers'));
-    }
-
-    public function users()
-    {
-        $users = User::where('role_id','3')->get();
-        return view('admin.users.users',compact('users'));
     }
 
 

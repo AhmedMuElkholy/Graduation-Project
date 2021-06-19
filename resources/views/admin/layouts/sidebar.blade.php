@@ -127,15 +127,6 @@
                                     @can('users.create')
                                         <a href="{{route('admin.users.create')}}" class="dropdown-item">Create</a>
                                     @endcan
-                                    @can('users.users')
-                                        <a href="{{route('admin.users.users')}}" class="dropdown-item">Users</a>
-                                    @endcan
-                                    @can('users.admins')
-                                        <a href="{{route('admin.users.admins')}}" class="dropdown-item">Admins</a>
-                                    @endcan
-                                    @can('users.researcher')
-                                        <a href="{{route('admin.users.researcher')}}" class="dropdown-item">Researcher</a>
-                                    @endcan
                                 </div>
                             </li>
                         </ul>

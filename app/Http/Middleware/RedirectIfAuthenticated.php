@@ -23,7 +23,16 @@ class RedirectIfAuthenticated
             if(auth()->user()->role_id == 1){
                 return redirect('/admin');
             }else{
-                return redirect(RouteServiceProvider::HOME);
+                if(auth()->user()->role_id == 2)
+                {
+                    return redirect('/researcher');
+
+                }else if(auth()->user()->role_id == 3){
+                    
+                    return redirect('/user');
+                }
+                
+                // return redirect(RouteServiceProvider::HOME);
             }
         }
 

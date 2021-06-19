@@ -15,6 +15,8 @@ class PermissionsTableSeeder extends Seeder
     public $list = ['dashboards.index','settings.index','profile','generalInfo','changeImage'
                     ,'changePassword','users.admins','users.researchers','users.users'
                     ];
+    
+    public $user = ['user.home'];
 
     public function run()
     {
@@ -34,6 +36,16 @@ class PermissionsTableSeeder extends Seeder
         }
         
         foreach($this->list as $i)
+        {
+            $permission = Permission::create([
+                'name' => $i,
+                'guard_name' => 'web'
+                ]);
+
+            $role->permissions()->save($permission);
+        }
+
+        foreach($this->user as $i)
         {
             $permission = Permission::create([
                 'name' => $i,

@@ -144,7 +144,8 @@ return [
     'modules' => [
         'permissions',
         'roles',
-        'teams'
+        'teams',
+        'users'
     ],
     
     'permissions' => 

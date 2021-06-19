@@ -18,6 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['namespace' => 'Normaluser' , 'prefix' => 'user' , 'as' => 'user.' ] ,function(){
+        Route::get('/','UserHomeController@index')->name('home');
+});
+
+
+Route::group(['namespace' => 'Researcher' , 'prefix' => 'researcher' , 'as' => 'researcher.' ] ,function(){
+    Route::get('/','ResearcherHomeController@index')->name('home');
+});

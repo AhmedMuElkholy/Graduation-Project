@@ -23,9 +23,6 @@ use Illuminate\Support\Facades\Auth;
         
         //users
         Route::resource('users', 'UserController');
-        Route::get('/admins','UserController@admins')->name('users.admins');
-        Route::get('/users','UserController@users')->name('users.users');
-        Route::get('/researchers','UserController@researchers')->name('users.researchers');
-
+        Route::post('users/updatePassword/{id}', 'UserController@updatePassword')->name('users.updatePassword');
         //users
 

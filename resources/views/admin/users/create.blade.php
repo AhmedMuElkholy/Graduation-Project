@@ -60,42 +60,61 @@
                                         <form action="{{route('admin.users.store')}}"  method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group col-lg-6">
-                                                <label>Name</label>
+                                                <label>Name <span style="color: red">*</span></label>
                                                 <input type="text" name="name" class="form-control" 
                                                 placeholder="Enter Name" value="{{old('name')}}"/>
                                             </div>
                                             <div class="form-group col-lg-6">
-                                                <label>Job Title</label>
-                                                <input type="text" name="job_title" class="form-control" 
-                                                placeholder="Enter Job Title" value="{{old('job_title')}}" />
+                                                <label>Email <span style="color: red">*</span></label>
+                                                <input type="email" name="email" class="form-control" placeholder="Enter Email" value="{{old('email')}}" />
                                             </div>
 
                                             <div class="form-group col-lg-6">
-                                                <label>Facebook URL</label>
-                                                <input type="text" name="facebook_url" class="form-control" 
-                                                placeholder="Enter Facebook URL" value="{{old('facebook_url')}}" />
-                                            </div>
-
-                                             <div class="form-group col-lg-6">
-                                                <label>Twitter URL</label>
-                                                <input type="text" name="twitter_url" class="form-control" 
-                                                placeholder="Enter Twitter URL" value="{{old('twitter_url')}}" />
-                                            </div>
-
-                                             <div class="form-group col-lg-6">
-                                                <label>LinkedIn URL</label>
-                                                <input type="text" name="linkedIn_url" class="form-control" 
-                                                placeholder="Enter LinkedIn URL" value="{{old('linkedIn_url')}}" />
+                                                <label>Phone <span style="color: red">*</span></label>
+                                                <input type="number" name="phone" min="0" id="phone" placeholder="Phone" class="form-control" value="{{old('phone')}}"/>
                                             </div>
 
                                             <div class="form-group col-lg-6">
-                                                <label>Instagram URL</label>
-                                                <input type="text" name="insta_url" class="form-control" 
-                                                placeholder="Enter Instagram URL" value="{{old('insta_url')}}" />
+                                                <label for="gender">Gender <span style="color: red">*</span></label>
+                                                <select id="gender" class="form-control" name="gender">
+                                                    <option value="">Choose Gender</option>
+                                                    @foreach(["male" => "Male", "female" => "Female"] AS $gender => $Type)    
+                                                        <option value="{{ $gender }}" {{ old("gender") == $gender ? "selected" : "" }}>{{ $Type }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
+
+                                            
+                                            <div class="form-group col-lg-6">
+                                                <label>Role <span style="color: red">*</span></label>
+                                                <select name="role_id" id="role_id" class="form-control @error('role_id') is-invalid @enderror">
+                                                <option value="">Choose Role</option>
+                                                    @foreach (\Spatie\Permission\Models\Role::get(); as $role)
+                                                        <option value="{{ $role->id }}"  {{ old("role_id") == $role->id ? "selected" : "" }}>{{ ucfirst($role->name) }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+
+                                            <div class="form-group col-lg-6">
+                                                <label for="date_of_birth">Date Of Birth <span style="color: red">*</span></label>
+                                                <input type="text" id="datepicker" class="form-control" placeholder="Date Of Birth" name="date_of_birth" autocomplete="off" id="date_of_birth" value="{{old('date_of_birth')}}">
+                                            </div>
+
+                                            <div class="form-group col-lg-6">
+                                                <label>Password <span style="color: red">*</span></label>
+                                                <input type="password" name="password" class="form-control" placeholder="Enter Password" value="{{old('password')}}" />
+                                            </div>
+
+                                             <div class="form-group col-lg-6">
+                                                <label>Password Confirm <span style="color: red">*</span></label>
+                                                <input type="password" name="password_confirmation" class="form-control" placeholder="Enter Password" value="{{old('password_confirmation')}}" />
+                                            </div>
+
+                                        
 
                                             <div class="form-group col-lg-12">
-                                                <label for="photo">Photo</label>
+                                                <label for="photo">Photo <span style="color: red">*</span></label>
                                                 <input type="file" name="photo" id="photo" class="form-control">
                                             </div>
                                             
@@ -117,6 +136,11 @@
     </div>
 </div>
 <!-- Basic Form End-->
-
-
 @endsection
+@push('adminjs')
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+@endpush
